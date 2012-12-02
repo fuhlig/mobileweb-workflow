@@ -1,0 +1,943 @@
+<!--
+Bremen.js
+Author: Florian Uhlig
+___________________________  
+
+Slides based on:
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bremen.js #4 - Mobile Web Workflow</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <!-- Intro -->
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar green"><img src="images/hb-js_inv.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="nobackground">
+    <aside class="extra"><img src="images/info.png"></aside>
+    <article class="flexbox vcenter">
+      <ul>
+        <li>Zusätzliche Infos & Resourcen werden mit <img src="images/info.png" style="width: 20px"> angezeigt und können mit <strong>'p'</strong> aufgerufen werden
+          <br><a href="?presentme=false" target="_self" class="button" style="margin: 20px 0 20px 0">Infos aktivieren</a>
+        </li>
+        <li>Highlights in Codesamples werden <strong>'h'</strong> angezeigt</li>
+        <pre class="prettyprint">CodeSample <b>Hightlight</b></pre>
+      </ul>
+    </article>
+    <aside class="note">
+      <section>
+        <h3>Los gehts!</h3>
+      </section>
+    </aside>
+  </slide>
+
+  <slide class="nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/mw-wf_logo.png"></span>
+    </article>
+  </slide>
+
+  <!-- idea / business -->
+  <slide>
+    <hgroup>
+      <h2>Idee oder Auftrag</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/idea_business.png">
+    </article>
+  </slide>
+
+  <!-- web vs app intro -->
+  <slide>
+    <hgroup>
+      <h2>Web vs. App</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/crossroad.png">
+    </article>
+  </slide>
+
+  <!-- web vs app compare -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <hgroup>
+      <h2>Web vs App</h2>
+    </hgroup>
+    <article class="smaller">
+      <table>
+        <tr>
+          <th></th><th>Web</th><th>Native</th>
+        </tr>
+        <tr>
+          <td>Use-Cases</td>
+          <td>Informationen (Texte, Feeds, Videos, ...)</td>
+          <td>Anwendungen mit Hardwarezugriff (Kompass, Kamera, ...)</td>
+        </tr>
+        <tr>
+          <td>Look & Feel</td>
+          <td>
+            <ul>
+              <li>Eigene Komponenten</li>
+              <li>Browserabhängig</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>Konsistente UX</li>
+              <li>Geräte / OS Komponenten</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td>Gerätefunktionen</td>
+          <td>
+            limitierte Hardwarefunktionen /<br>
+            OS Integration
+          </td>
+          <td>
+            kompletter Hardwarezugriff /<br>
+            OS Integration            
+          </td>
+         </tr>
+        <tr>
+          <td>Entwicklung</td>
+          <td>
+            <ul>
+              <li>Web Technologie</li>
+              <li>Cross-Platform<br>('write once, run everywhere')</li>
+              <li>einheitliche Codebase</li>
+            </ul>
+          </td>
+          <td>
+            <ul>
+              <li>speziellere Anforderungen (Sprache, Tools, Devices)</li>
+              <li>einzelnes OS</li>
+            </ul>
+          </td>
+         </tr>
+        <tr>
+          <td>Testen & Debuggen</td>
+          <td>Webtools</td>
+          <td>Native + OS Debug</td>
+        </tr>
+        <tr>
+          <td>Deployment</td>
+          <td>flexibel (c'mon it's the <b>WEB</b>)</td>
+          <td>Markets</td>
+        </tr>
+      </table>
+    </article>
+    <aside class="note">
+      <section>
+        <ul>
+          <li></li>
+          <a href="http://boagworld.com/mobile-web/html5-app-myth-build-once-works-everywhere/">Build once optimise everywhere</a>
+        </ul>
+      </section>
+    </aside>
+  </slide>
+
+  <!-- design intro -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar right light"><img src="images/pen.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Design</h2>
+    </hgroup>
+  </slide>
+
+  <!-- design approach -->
+  <slide>
+    <hgroup>
+      <h2>Responsive Design oder Mobile Design?</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/devices.png">
+    </article>
+  </slide>
+
+  <!-- responsive design -->
+  <slide class="segue dark quote nobackground">
+   <article class="flexbox vleft auto-fadein smaller">
+      <q>
+        Responsive Web Design essentially indicates that a web site is crafted to use Cascading Style Sheets 3 <b>media queries</b>…with <b>fluid</b> proportion-based grids, to adapt the layout to the viewing environment, and probably also use <b>flexible images</b>. As a result, users across a <b>broad range of devices and browsers</b> will have access to a <b>single source of content</b>, laid out so as to be easy to read and navigate with a minimum of resizing, panning, and scrolling.
+      </q>
+      <div class="author">
+        <a href="http://en.wikipedia.org/wiki/Responsive_Web_Design">Responsive Web Design</a><br>
+        Wikipedia
+      </div>
+    </article>
+  </slide>
+
+  <!-- responsive design -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <hgroup>
+      <h2>Responsive Design</h2>
+      <h3>Voraussetzungen</h4>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>sementisch sauberes Markup</li>
+        <li>keine absoluten Positionierungen, Einsatz von <code>(r)em</code> und <code>%</code> statt <code>px</code></li>
+        <li class="">build once, run everywhere</li>
+      </ul>
+    </article>
+    <aside class="note">
+      <section>
+        <ul>
+          <li></li>
+          <a href="http://boagworld.com/mobile-web/html5-app-myth-build-once-works-everywhere/">Build once optimise everywhere</a>
+        </ul>
+      </section>
+    </aside>
+  </slide>
+
+  <!-- responsive design APPROACHES#1 -->
+  <slide>
+    <hgroup>
+      <h2>Responsive Design</h2>
+      <h3>Desktop First</h4>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/desktop-first.png">
+    </article>
+  </slide>
+
+  <!-- responsive design APPROACHES#2 -->
+  <slide>
+    <hgroup>
+      <h2>Responsive Design</h2>
+      <h3>Mobile First</h4>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/mobile-first.png">
+    </article>
+  </slide>
+  <!-- responsive design COMPARE -->
+  <slide>
+    <hgroup>
+      <h2>Responsive Design</h2>
+    </hgroup>
+    <article>
+      <table>
+        <tr>
+          <th></th><th>Desktop First</th><th>Mobile First</th>
+        </tr>
+        <tr>
+          <td>Priorität</td>
+          <td>Desktop</td>
+          <td>Mobile<td>
+        </tr>
+        <tr>
+          <td>Codebase</td>
+          <td class="green3">1</td>
+          <td class="green3">1</td>
+        </tr>
+        <tr>
+          <td>UX</td>
+          <td class="red3">"abgespeckte" Version für Mobile</td>
+          <td class="green3">optimiert für Mobile (progressive Enhancement)</td>
+         </tr>
+        <tr>
+          <td>Performance</td>
+          <td class="red3">eventuell unnötige Daten</td>
+          <td class="red3">eventuell unnötige Daten</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+  <!-- responsive EXAMPLES -->
+  <slide>
+    <hgroup>
+      <h3>Beispiele</h3>
+    </hgroup>
+    <article>
+      <iframe data-src="http://www.mediaqueri.es"></iframe>
+    </article>
+  </slide>
+
+  <!-- responsive EXAMPLES -->
+  <slide>
+    <hgroup>
+      <h3>Frameworks</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul class="build fade no-bullet">
+        <li><a href="http://twitter.github.com/bootstrap/"><img src="images/bootstrap.png"></a></li>
+        <li><a href="http://foundation.zurb.com"><img src="images/foundation.png"></a></li>
+        <li><a href="http://lessframework.com/"><img src="images/less-framework.png"></a></li>
+        <li><a href="http://www.getskeleton.com/"><img src="images/skeleton.png"></a></li>
+      </ul>
+    </article>
+  </slide>
+
+  <!-- mobile design CLASSIFICATION -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <hgroup>
+      <h2>Mobile Version</h2>
+      <h3>Klassifizierung</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>small + touch (phones)</li>
+        <li>medium / large + touch (tablets)</li>
+        <li>medium / large + notouch (laptops / desktop)</li>        
+        <li class="gray">small + notouch (phones)</li>
+      </ul>
+    </article>
+    <aside class="note">
+      <section>
+        <ul>
+          <li><a href="http://www.html5rocks.com/en/mobile/cross-device/">A Non-responsive Approach To Building Cross-device Webapps</a></li>
+        </ul>
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Mobile Version</h2>
+      <h3>Detection</h3>
+    </hgroup>
+    <article>
+      <table class="rows">
+        <tr>
+          <th>Server-Side (User-Agent)</th><td class="green">Kontrolle über ausgelieferte Version</td><td class="green">Performance</td><td class="red">Erkennung eingeschränkt<br>(mobile || non-mobile)</td>
+        </tr>
+        <tr>
+          <th>Client-Side (device.js)</th><td class="green">"Zukunftssicher" (nicht UA abhängig)</td><td class="yellow3">Performance clientabhängig</td><td class="green">Erkennung nach <br><code>touch, screen-size, ...</code></td>
+        </tr>
+      </table>
+      <ul class="build no-bullet flexbox vcenter" style="margin-top: 100px">
+        <li>3 + x Versions? -.-'</li>
+        <li>no! MVC</li>
+      </ul>
+    </article>
+  </slide>
+
+  <!-- MVC architecture -->
+  <slide>
+    <hgroup>
+      <h2>MVC</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/mvc.jpg">
+      <footer class="source">source: <a href="http://www.html5rocks.com/en/mobile/cross-device/">html5rocks.com</a></footer>    </article>
+  </slide>
+
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <hgroup>
+      <h3><a href="https://github.com/borismus/device.js">device.js</a></h3>
+    </hgroup>
+    <div>
+    <article class="smaller">
+      <pre class="prettyprint" data-lang="html">
+  &lt;link <b>rel="alternate"</b> href="http://foo.com" <b>id="desktop"</b>
+      media="only screen and <b>(touch-enabled: 0)</b>">
+  &lt;link <b>rel="alternate"</b> href="http://<b>m.foo</b>.com" <b>id="phone"</b>
+      media="only screen and (max-device-width: 650px)">
+  &lt;link <b>rel="alternate"</b> href="http://<b>tablet.foo</b>.com" <b>id="tablet"</b>
+      media="only screen and (min-device-width: 650px)">
+      </pre>
+    </article>
+    <article class="smaller">
+      <pre>models/ (shared models)
+  item.js
+  item-collection.js
+
+controllers/ (shared controllers)
+  item-controller.js
+
+<b>versions/ (device-specific stuff)
+  tablet/
+  desktop/
+  phone/ (phone-specific code)
+      style.css
+      index.html
+      views/
+        item.js
+        item-list.js</b></pre>
+    </article>
+    </div>
+    <aside class="note">
+      <section>
+        <h3>Talks zu device.js</h3>
+        <ul>
+          <li><a href="http://youtu.be/pmqKnEG-6GA?t=26m40s">HTML5Rocks Live #1</a></li>
+          <li><a href="http://youtu.be/ie4I7B-umbA?t=13m50s">Fast UIs for Cross-Device Web</a></li>
+        </ul>
+        <a href="http://www.html5rocks.com/en/mobile/cross-device/">Cross-Device Webapps</a>
+      </section>
+    </aside>
+  </slide>
+
+  <!-- mobile design CONCLUSION -->
+  <slide>
+    <hgroup>
+      <h2>Mobile Version</h2>
+      <h3>Zusammenfassung</h3>
+    </hgroup>
+    <article>
+      <ol class="build">
+        <li>Klassifizierung</li>
+        <li>MVC Pattern</li>
+        <li><code>device.js</code> für Client-side Detection</li>        
+        <li>Gerätespezifische Assets etc in <code>versions/device</code></li>
+        <li class="yellow3">Server-Side Detection bei Performanceproblemen</li>
+      </ol>
+    </article>
+  </slide>
+
+  <!-- design CREATIVE -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar right bottom light"><img src="images/pen.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Design</h2>
+      <h3>Okay, jetzt zum kreativen Part!</h3>
+    </hgroup>
+  </slide>
+
+  <!-- design PAPER PROTOTYPE -->
+  <slide>
+    <hgroup>
+      <h2>Papierprototyp</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/pp1.jpg" style="height: 60%">
+      <img src="images/pp2.jpg" style="height: 60%">
+      <footer class="source"><a href="http://www.netmagazine.com/features/practical-guide-tactical-mobile-prototyping">netmagazine.com</a></footer>
+    </article>
+  </slide>
+
+  <!-- design STENCILS -->
+  <slide>
+    <hgroup>
+      <h2>Papierprototyp</h2>
+      <h3>Stencils</h3>
+    </hgroup>
+    <article>
+      <iframe data-src="http://www.uistencils.com/"></iframe>
+    </article>
+  </slide>
+
+  <!-- design SKETCHES -->
+  <slide>
+    <hgroup>
+      <h2>Papierprototyp</h2>
+      <h3>Sketches</h3>
+    </hgroup>
+    <article>
+      <iframe data-src="http://sneakpeekit.com/"></iframe>
+    </article>
+  </slide>
+
+  <!-- design INTERACTIVE PROTOTYPES -->
+  <slide>
+    <hgroup>
+      <h2>Prototypes</h2>
+      <h3>interaktiv</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <a href="https://www.fluidui.com/"><img src="images/fluidui.png"></a>
+      <a href="https://www.proto.io/"><img src="images/protoio.png" style="width: 500px"></a>
+    </article>
+  </slide>
+
+  <!-- design INTERACTIVE PROTOTYPES -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>    
+    <hgroup>
+      <h2>Mockups</h2>
+      <h3>Alternative zu Photoshop</h3>
+    </hgroup>
+    <article class="centered">
+      <img src="images/fireworks.jpg">
+      <footer class="source"><a href="http://fireworks.smashingmagazine.com/2012/06/11/developing-a-design-workflow-in-adobe-fireworks/">Smashing Magazine: Design Workflow in Adobe Fireworks</a></footer>
+    </article>
+    <aside class="note">
+      <section>
+        <h3>inspirieren lassen</h3>
+        <ul>
+          <li><a href="http://pttrns.com/">pttrns</a></li>
+          <li><a href="http://mobile-patterns.com/">Mobile UI Patterns</a></li>
+          <li><a href="http://www.mobilepatterns.com/">Mobile Patterns</a></li>
+        </ul>
+      </section>
+    </aside>
+  </slide>
+
+  <!-- design ICON FONTS -->
+  <slide>
+    <hgroup>
+      <h2>Icons</h2>
+      <h3>Fonts</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Responsive</li>
+        <li>Performance</li>
+        <li>CSS Styles</li>
+      </ul>
+    </article>
+  </slide>
+
+  <!-- design ICON-FONTS DEMO -->
+  <slide>
+    <hgroup>
+      <h2>Icon-Fonts</h2>
+      <h3>Demo</h3>
+    </hgroup>
+    <article>
+      <iframe data-src="http://css-tricks.com/examples/IconFont/"></iframe>
+    </article>
+  </slide>
+
+  <!-- design ICON FONTS -->
+  <slide>
+    <hgroup>
+      <h2>Icons</h2>
+      <h3>Getting Started</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li><a href="http://css-tricks.com/forums/discussion/16009/list-of-css-icon-fonts/p1">Download Icon Fonts</a></li>
+        <li><a href="http://blog.stephenwyattbush.com/2012/02/01/making-an-icon-font">Icon-Font erstellen</a></li>
+        <li><a href="http://fontello.com/">Icon-Font zusammenstellen</a></li>
+      </ul>
+      <pre class="prettyprint" data-lang="css">
+        <b>@font-face</b> {
+            <b>font-family: '[font-name]';</b>
+            <b>src:</b> url('../../fonts/[font-name].eot');
+            src: url('../../fonts/[font-name].eot?#iefix') format('embedded-opentype'),
+                 url('../../fonts/[font-name].woff') format('woff'),
+                 url('../../fonts/[font-name].ttf') format('truetype'),
+                 url('../../fonts/[font-name].svg#[font-name]') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+      </pre>
+    </article>
+  </slide>  
+
+  <!-- design FONTELLO -->
+  <slide>
+    <hgroup>
+      <h2>Icon-Fonts</h2>
+      <h3>Fontello</h3>
+    </hgroup>
+    <article>
+      <iframe data-src="http://fontello.com/"></iframe>
+    </article>
+  </slide>
+
+  <!-- design ICOMOON -->
+  <slide>
+    <hgroup>
+      <h2>Icon-Fonts</h2>
+      <h3>Fontello</h3>
+    </hgroup>
+    <article>
+      <iframe data-src="http://keyamoon.com/icomoon/app/"></iframe>
+    </article>
+  </slide>
+
+
+  <!-- design PREVIEW ANDROID -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <hgroup>
+      <h2>Preview</h2>
+      <h3>Android</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <a href="http://code.google.com/p/android-ui-utils/#2._Android_Design_Preview"><img src="images/android-design-preview.jpg"></a>
+    </article>
+    <aside class="note">
+      <section>
+        <ul>
+          <li><a href="http://developer.android.com/design/index.html">Android Design</a></li>
+          <li><a href="http://developer.android.com/guide/practices/ui_guidelines/index.html">Android UI Guidelines</a></li>
+        </ul>
+      </section>
+    </aside>
+  </slide>
+
+  <!-- design PREVIEW ANDROID -->
+  <slide>
+
+    <hgroup>
+      <h2>Preview</h2>
+      <h3>Android Generators</h3>
+    </hgroup>
+    <article>
+      <iframe data-src="http://android-ui-utils.googlecode.com/hg/asset-studio/dist/index.html"></iframe>
+    </article>
+  </slide>
+
+  <!-- design PREVIEW IOS -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <hgroup>
+      <h2>Preview</h2>
+      <h3>iOS</h3>
+    </hgroup>
+    <article class="centered">
+      <img src="images/ios-preview.jpg" style="height: 75%">
+      <footer class="source"><a href="http://zambetti.com/projects/liveview/">LiveView</a></footer>
+    </article>
+    <aside class="note">
+      <section>
+        <a href="http://developer.apple.com/library/ios/#documentation/userexperience/conceptual/mobilehig/AppDesign/AppDesign.html">iOS Human Interface Guidelines</a>
+      </section>
+    </aside>
+  </slide>
+
+  <!-- development INTRO -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar right light"><img src="images/code_small.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Entwicklung</h2>
+      <h3></h3>
+    </hgroup>
+  </slide>
+
+  <!-- mobile GETTING STARTET -->
+  <slide>
+    <hgroup>
+      <h3>Getting Started</h3>
+    </hgroup>
+    <article>
+      <iframe data-src="http://html5boilerplate.com/mobile"></iframe>
+    </article>
+  </slide>
+
+  <!-- mobile LIGHTWEIGHT -->
+  <slide>
+    <hgroup>
+      <h2>Mobile Frameworks</h2>
+      <h3>Leichtgewicht (8.4kb) </h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <a href="http://zeptojs.com"><img src="images/zepto.png" style="max-width: 600px"></a>
+    </article>
+  </slide>
+
+  <!-- mobile FRAMEWORKS -->
+  <slide>
+    <hgroup>
+      <h3>Mobile Frameworks</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul class="build fade no-bullet">
+        <li><a href="http://www.jquerymobile.com/"><img src="images/jqm.png"></a></li>
+        <li><a href="http://http://www.sencha.com/products/touch/"><img src="images/sencha.png"></a></li>
+        <li><a href="http://www.kendoui.com/mobile.aspx"><img src="images/kendo.png"></a></li>
+      </ul>
+    </article>
+  </slide>
+
+  <!-- development HYBRID -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar right bottom light"><img src="images/code_small.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Hybrid Apps</h2>
+      <h3>Hardwarezugriff, bitte!</h3>
+    </hgroup>
+  </slide>
+
+  <!-- development PHONEGAP INTRO -->
+  <slide>
+    <article class="flexbox vcenter centered">
+      <img src="images/phonegap_logo.png">
+      <img src="images/phonegap_lab.png" style="width: 50%">
+    </article>
+  </slide>
+
+   <!-- test PhoneGap WORKFLOW-->
+  <slide>
+    <hgroup>
+      <h2>PhoneGap</h2>
+      <h3>Workflow</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/phonegap_workflow.png" style="width: 110%">
+    </article>
+  </slide>
+
+   <!-- test PhoneGap FEATURES-->
+  <slide>
+    <hgroup>
+      <h2>PhoneGap</h2>
+      <h3>Features</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/phonegap_features.png" style="height: 90%; margin-top: -70px">
+    </article>
+  </slide>
+
+  <!-- testing intro -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar right light"><img src="images/testing_small.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Test & Debug</h2>
+      <h3></h3>
+    </hgroup>
+  </slide>
+
+   <!-- test DEVTOOLS -->
+  <slide>
+    <hgroup>
+      <h2>Emulatoren</h2>
+    </hgroup>
+    <article>
+      <iframe data-src="http://www.mobilexweb.com/emulators"></iframe>
+    </article>
+  </slide>
+
+  <!-- test BROWSER -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <hgroup>
+      <h2>Browser</h2>
+      <h3>Developer Tools</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/google_developers_icon_128.png">
+    </article>
+    <aside class="note">
+      <section>
+        <h3>Chrome Dev Tools</h3>
+        <img src="images/devtools.png">
+      </section>
+    </aside>
+  </slide>
+
+  <!-- test RIPPLE -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <hgroup>
+      <h2>Emulator im Browser</h2>
+      <h3>Ripple Emulator</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <a href="https://chrome.google.com/webstore/detail/geelfhphabnejjhdalkjhgipohgpdnoc?utm_source=chrome-ntp-icon"><img src="images/ripple.png" style="width: 200px"></a>
+    </article>
+    <aside class="note">
+      <section>
+        <a href="http://rippledemo.tinyhippos.com/">Ripple Demos</a>
+      </section>
+    </aside>
+  </slide>
+
+  <!-- test NETWORK -->
+  <slide>
+    <hgroup>
+      <h2>Network</h2>
+      <h3>Testen unter "reelen" Bedingungen (lokal)</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <a href="http://charlesproxy.com"><img src="images/charles.jpg"></a>
+    </article>
+  </slide>
+
+  <!-- test NETWORK -->
+  <slide>
+    <hgroup>
+      <h2>Network</h2>
+      <h3>Testen unter "reelen" Bedingungen (online)</h3>
+    </hgroup>
+    <article>
+      <iframe data-src="http://mobitest.akamai.com/m/index.cgi"></iframe>
+    </article>
+  </slide>
+
+  <!-- test JSBIN -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <hgroup>
+      <h2>JS BIN</h2>
+      <h3>Playground</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Remote rendering <code>(/jsbin.com/[abc] || jsbin.com/[user]/last)</code></li>
+        <li>Code Sharing <code>(/edit)</code></li>
+        <li>Code Casting <code>(/watch)</code></li>
+      </ul>
+      <div class="centered">
+        <a href="http://jsbin.com"><img src="images/jsbin.png" class="centered"></a>
+      </div>
+    </article>
+    <aside class="note">
+      <section>
+        <h3>JS BIN Videos</h3>
+        <ul>
+          <li><a href="http://youtu.be/PHDThjUOJSc">Shortcut URLS</a></li>
+          <li><a href="http://youtu.be/eDFGrqjjyLk">Remote Rendering</a></li>
+        </ul>
+      </section>
+    </aside>
+  </slide>
+
+  <!-- test SHADOW -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>
+    <aside class="gdbar right"><img src="images/shadow.jpg"></aside>    
+    <hgroup>
+      <h2>Adobe Shadow</h2>
+      <h3>Features</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Synchronized Browsing</li> 
+        <li>Remote Inspection / Debugging</li> 
+        <li>Screenshots</li> 
+        <li>Cache Management</li> 
+        <li>SSL & HTTP Authentification Support</li> 
+      </ul>
+    </article>
+    <aside class="note">
+      <section>
+        <a href="http://t.co/CyXIpoci">Adobe Shadow Webinar</a>
+      </section>
+    </aside>
+  </slide>  
+
+  <!-- test SHADOW FEATURES -->
+  <slide>
+    <aside class="gdbar right"><img src="images/shadow.jpg"></aside>    
+    <hgroup>
+      <h2>Adobe Shadow</h2>
+      <h3>Installation</h3>
+    </hgroup>
+    <article>
+      <ol>
+        <li><a href="http://labs.adobe.com/downloads/shadow.html">Shadow Helper App</a></li> 
+        <li class="gray2">Bonjour (Windows)</li> 
+        <li>
+          <a href="http://www.adobe.com/go/sd_ios_app">iOS</a> / 
+          <a href="http://www.adobe.com/go/sd_android_app">Android</a> /
+          <a href="http://www.adobe.com/go/sd_amazon_android_app">Kindle Fire</a> App
+        </li> 
+        <li><a href="http://www.adobe.com/go/sd_chrome_app">Google Chrome Extension</a></li> 
+      </ol>    
+    </article>
+  </slide>
+
+  <!-- deployment intro -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar right light"><img src="images/package_closed_small.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Deployment</h2>
+      <h3>Führ mich zum Schotter!</h3>
+    </hgroup>
+  </slide>
+
+  <!-- deployment MARKETS -->
+  <slide>
+    <hgroup>
+      <h2>Web App Markets</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul class="build no-bullet" style="line-height: 180px">
+        <li><a href="http://www.openappmkt.com/"><img src="images/oam.png" style="width: 300px"></a></li>
+        <li><a href="http://www.apssfuel.com"><img src="images/appsfuel.png" style="width: 300px"></a></li>
+      </ul>
+    </article>
+  </slide>
+
+  <!-- deployment PHONEGAP BUILD-->
+  <slide>
+    <hgroup>
+      <h2>PhoneGap.build</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/phonegap_build.png" style="height: 90%; margin-top: -70px">
+    </article>
+  </slide>
+
+  <!-- deployment intro -->
+  <slide class="segue dark nobackground">
+    <aside class="gdbar right light"><img src="images/icenium_logo.jpg"></aside>
+    <hgroup class="auto-fadein">
+      <h2>All-in-One Lösung</h2>
+      <h3>develop, test, package, deploy</h3>
+    </hgroup>
+  </slide>
+
+  <!-- icenium INTRO -->
+  <slide>
+    <aside class="extra"><img src="images/info.png"></aside>  
+    <article class="flexbox vcenter">
+      <a href="http://www.icenium.com/"><img src="images/icenium.jpg"></a>
+    </article>
+    <aside class="note">
+      <section>
+        <a href="http://www.icenium.com/community/get-invited">Invite Request</a>
+      </section>
+    </aside>
+  </slide>
+
+  <!-- THANK YOU! -->
+  <slide class="segue thank-you-slide nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Vielen Dank</h2>
+      <h3>für eure Aufmerksamkeit!</h3>
+    </hgroup>
+  </slide>
+  <slide class="backdrop"></slide>
+
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
